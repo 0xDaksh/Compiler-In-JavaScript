@@ -1,7 +1,7 @@
 
 const someCode = `
 
-  add(1);
+  (add 5 2)
 
 `
 
@@ -123,18 +123,6 @@ const tokenizer = (inputCode) => {
 
       continue;
     }
-
-    if (ch === ';') {
-      tokens.push({
-        type: 'endStatement',
-        value: ';',
-      });
-
-      cursor++;
-      
-      continue;
-    }
-
     
     throw new TypeError(`You sure about this? I dont really understand it at: ${ch}, ${cursor}`);
 
