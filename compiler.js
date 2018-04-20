@@ -10,7 +10,7 @@ const tokenizer = (inputCode) => {
   const tokens = []; // an array of tokens.
   let cursor = 0; // our cursor
 
-  while(cursor < input.length) {
+  while(cursor < inputCode.length) {
     let ch = inputCode[cursor]; // current charachter in the input.
 
     
@@ -77,9 +77,35 @@ const tokenizer = (inputCode) => {
 
     }
 
-    
+    // supporting strings now
+
+    if (ch === '"') {
+
+      let value = '';
+
+      ch = inputCode[++cursor];
+
+      while(ch !== '"') {
+        value += ch;
+        ch = inputCode[++cursor];
+      }
+
+      // ignoring the last "
+
+      char = inputCode[++cursor];
+
+      tokens.push({
+        type: 'string',
+        value,
+      });
+    }
 
   }
 
 
+  return tokens;
+
 }
+
+
+console.log(tokenizer(someCode));
