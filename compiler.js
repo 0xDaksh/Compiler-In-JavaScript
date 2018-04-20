@@ -1,7 +1,7 @@
 
 const someCode = `
 
-  add(1, 2);
+  add(1);
 
 `
 
@@ -75,6 +75,8 @@ const tokenizer = (inputCode) => {
       });
 
 
+      continue;
+
     }
 
     // supporting strings now
@@ -107,7 +109,34 @@ const tokenizer = (inputCode) => {
     
     if (LETTERS.test(ch)) {
 
+      let value = '';
+
+      // loop through charachters that are together
+      while (LETTERS.test(ch)) {
+        value += ch;
+        ch = inputCode[++cursor];
+      }
+
+      // now we push the value of the identifier
+
+      tokens.push({ type: 'name', value });
+
+      continue;
     }
+
+    if (ch === ';') {
+      tokens.push({
+        type: 'endStatement',
+        value: ';',
+      });
+
+      cursor++;
+      
+      continue;
+    }
+
+    
+    throw new TypeError(`You sure about this? I dont really understand it at: ${ch}, ${cursor}`);
 
   }
 
