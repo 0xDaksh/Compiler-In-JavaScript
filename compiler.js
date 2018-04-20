@@ -65,8 +65,8 @@ const tokenizer = (inputCode) => {
 
       // we loop through all the other numbers attached together.
       while(NUMBERS.test(ch)) {
-        value += char;
-        char = inputCode[++cursor];
+        value += ch;
+        ch = inputCode[++cursor];
       }
 
       tokens.push({
@@ -92,12 +92,21 @@ const tokenizer = (inputCode) => {
 
       // ignoring the last "
 
-      char = inputCode[++cursor];
+      ch = inputCode[++cursor];
 
       tokens.push({
         type: 'string',
         value,
       });
+
+      continue;
+    }
+
+
+    let LETTERS = /[A-z]/;
+    
+    if (LETTERS.test(ch)) {
+
     }
 
   }
